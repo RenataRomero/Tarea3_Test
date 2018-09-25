@@ -4,9 +4,13 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
 
 
 /**
@@ -23,11 +27,12 @@ public class FragmentTechnology extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    private RecyclerView.Adapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
-    private OnFragmentInteractionListener mListener;
 
     public FragmentTechnology() {
         // Required empty public constructor
@@ -64,45 +69,34 @@ public class FragmentTechnology extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_technology, container, false);
-    }
+        View view = inflater.inflate(R.layout.fragment_technology, container, false);
+        RecyclerView recyclerView = view.findViewById(R.id.fragmentTechnology);
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
+        ArrayList<ItemProduct> products = new ArrayList<ItemProduct>();
+        ItemProduct itemProduct = new ItemProduct();
+        itemProduct.setTitle("MAC\"");
+        itemProduct.setStore("BestBuy");
+        itemProduct.setLocation("Zapopan, Jalisco");
+        itemProduct.setPhone("33 38291029");
+        itemProduct.setImage(0);
+        itemProduct.setDescription("Mac ultima generacion con pantalla optima core i7 y mochila incluida.");
+        ItemProduct itemProduct1 = new ItemProduct();
+        itemProduct1.setTitle("Alienware");
+        itemProduct1.setStore("BestBuy");
+        itemProduct1.setLocation("Zapopan, Jalisco");
+        itemProduct1.setPhone("33 38291029");
+        itemProduct1.setImage(1);
+        itemProduct1.setDescription("Alienware exclusiva para ese gamer que llevas en tu interior");
+        products.add(itemProduct);
+        products.add(itemProduct1);
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
+        adapter = new AdapterProduct(getActivity(),products);
+        recyclerView.setAdapter(adapter);
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        return view;
     }
 }

@@ -96,6 +96,7 @@ public class ActivityMain extends AppCompatActivity {
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
+
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
@@ -129,9 +130,9 @@ public class ActivityMain extends AppCompatActivity {
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position){
-                case Commons.IDK_SECTION1: return "Section 1";
-                case Commons.IDK_SECTION2: return "Section 2";
-                case Commons.IDK_SECTION3: return "Section 3";
+                case Commons.IDK_SECTION1: return getString(R.string.title_section1).toUpperCase();
+                case Commons.IDK_SECTION2: return getString(R.string.title_section2).toUpperCase();
+                case Commons.IDK_SECTION3: return getString(R.string.title_section3).toUpperCase();
             }
             return null;
         }
